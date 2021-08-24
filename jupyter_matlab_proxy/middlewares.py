@@ -2,7 +2,7 @@ from aiohttp import web
 from getpass import getuser
 
 def check_header_factory(header_name,header_value):
-    @middleware
+    @web.middleware
     async def check_header(request, handler):
         resp = await handler(request)
         if request.headers.get(header_name) != header_value:
