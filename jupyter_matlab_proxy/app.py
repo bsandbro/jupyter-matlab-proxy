@@ -11,6 +11,7 @@ from . import settings
 from .app_state import AppState
 from .util import mwi_logger
 from .util.mwi_exceptions import LicensingError
+from .middlewares import forwarded_user
 from jupyter_matlab_proxy import mwi_environment_variables as mwi_env
 import pkgutil
 import mimetypes
@@ -362,7 +363,11 @@ async def cleanup_background_tasks(app):
 
 def create_app():
 
-    app = web.Application()
+    enabled_middleware = []
+    if mwi_env.is_forwarded_user_middleware_enabled():
+        enabled_middleware.append(forwarded_user)
+
+    app = web.Application(middlewares=enabled_middleware)
 
     # Get application settings
     app["settings"] = settings.get(dev=(mwi_env.is_development_mode_enabled()))
