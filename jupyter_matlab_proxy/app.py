@@ -11,7 +11,7 @@ from . import settings
 from .app_state import AppState
 from .util import mwi_logger
 from .util.mwi_exceptions import LicensingError
-from .middlewares import forwarded_user
+from .middleware import forwarded_user
 from jupyter_matlab_proxy import mwi_environment_variables as mwi_env
 import pkgutil
 import mimetypes
