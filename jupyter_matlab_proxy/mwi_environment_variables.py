@@ -77,6 +77,13 @@ def get_env_name_matlab_tempdir():
     # Order matters, MATLAB checks TMPDIR first and then TMP
     return ["TMPDIR", "TMP"]
 
+def get_env_name_forwarded_user_middleware():
+    """Set to true to use the header authorization middleware"""
+    return "MWI_FORWARDED_USER_MIDDLEWARE"
+
+def is_forwarded_user_middleware_enabled():
+    """Returns true if the app should check for an X-forwarded-user header equal to the executing user."""
+    return os.environ.get(get_env_name_forwarded_user_middleware(), "false").lower() == "true"
 
 def is_development_mode_enabled():
     """Returns true if the app is in development mode."""
